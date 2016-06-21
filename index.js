@@ -39,12 +39,15 @@ app.get('/project',function (req, res){
     console.log(projectCreate.get({
       plain: true
     }));
+
+    res.json({
+      'projectId'   : projectCreate.get('id'),
+      'title'       : title,
+      'description' : description
+    });
   });
 
-  res.json({
-    'title'       : title,
-    'description' : description
-  });
+
 
 });
 
