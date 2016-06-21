@@ -25,8 +25,32 @@ Project.hasMany(Task);
 Task.belongsTo(Project);
 
 
+app.get('/project',function (req, res){
+  var title       = req.query.title;
+  var description = req.query.description;
+
+  // Yeni bir Proje oluştur.
+  sequelize.sync().then(function() {
+    return Project.create({
+      title       : title,
+      description : description
+    });
+  }).then(function(projectCreate){
+    console.log(projectCreate.get({
+      plain: true
+    }));
+  });
+
+  res.json({
+    'title'       : title,
+    'description' : description
+  });
+
+});
+
 
 app.get('/task/', function (req, res) {
+  // Gelen verileri alıyoruz.
   var projectId   = req.query.projectId;
   var title       = req.query.title;
   var description = req.query.description;
@@ -34,6 +58,7 @@ app.get('/task/', function (req, res) {
   var task_id     = "";
   var d = new Date(deadline);
 
+  // Yeni bir task oluşturuluyor.
   sequelize.sync().then(function() {
     return Task.create({
       title       : title,
@@ -63,7 +88,7 @@ app.get('/task/', function (req, res) {
       'description' : description,
       'deadline'    : deadline
     });
-  });  
+  });
 });
 
 app.listen(3000);
