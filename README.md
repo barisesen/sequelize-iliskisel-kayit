@@ -1,2 +1,3 @@
 # sequalize-iliskisel-kayit
-# sequelize-iliskisel-kayit
+
+npm run start
